@@ -12,6 +12,6 @@ app.use(logger);
 app.use('/api/books', booksRouter);
 app.use('/api/user', userRouter);
 
-app.use('error404');
+app.use(error404);
 
 app.listen(PORT);

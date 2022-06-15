@@ -64,12 +64,30 @@ router.post('/', (req, res, next) => {
 router.put('/:id', (req, res) => {
     const {books} = store;
     const {title, desc, authors, favorite, fileCover, fileName} = req.body;
+    const {id} = req.params;
+    const idx = books.findIndex(el => el.id === id);
 
-    const newBook = new Book(title, desc, authors, favorite, fileCover, fileName);
-    books.push(newBook);
+    console.log(req.body);
+    console.log(books[idx]);
 
-    res.status(201);
-    res.json(newBook);
+    if (idx !== -1){
+        books[idx] = {
+            ...books[idx],
+            title,
+            desc,
+            authors,
+            favorite,
+            fileCover,
+            fileName
+        };
+
+        console.log(books[idx]);
+
+        res.json(books[idx]);
+    } else {
+        res.status(404);
+        res.json('404 | страница не найдена');
+    }
 });
 
 router.delete('/:id', (req, res) => {
